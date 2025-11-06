@@ -1,0 +1,15 @@
+from typing import Callable
+import re
+
+def generator_numbers(text: str):
+    pattern=r"\d+\.\d+" # прописали шаблон для знаходження цифр в тексті
+    for match in re.findall(pattern, text): #проходимо по списку збігів
+         yield float(match) #видаємо по черзі числа типу float
+
+def sum_profit(text: str, func: Callable):
+    
+    return sum(func(text)) #тут ми кажемо - рузультат виконання функції над текстом(а це число з генератора) просумуй і поверни
+
+text = "Загальний дохід працівника складається з декількох частин: 1000.01 як основний дохід, доповнений додатковими надходженнями 27.45 і 324.00 доларів."
+total_income = sum_profit(text, generator_numbers)
+print(f"Загальний дохід: {total_income}")
